@@ -20,25 +20,25 @@ public class UserEntity {
     private String username;
 
     @Column(name = "pass_hash" , nullable = false)
-    private String password_hash;
+    private String passwordHash;
 
     @Column(name = "email" , nullable = false , unique = true , length = 255)
     private String email;
 
     @Column(name = "display_name" , nullable = false)
-    private String display_name;
+    private String displayName;
 
     @Column(name = "created_at" , nullable = false)
-    private String created_at;
+    private String createdAt;
 
-    protected UserEntity() {
+    public UserEntity() {
 
     }
 
     @PrePersist
     public void onCreate(){
-        if(created_at == null){
-            created_at = LocalDateTime.now().toString();
+        if(createdAt == null){
+            createdAt = LocalDateTime.now().toString();
         }
     }
 
