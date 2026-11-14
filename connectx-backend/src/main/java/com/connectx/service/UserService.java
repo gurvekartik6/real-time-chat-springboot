@@ -4,6 +4,9 @@ import com.connectx.dto.request.CreateUserRequest;
 import com.connectx.dto.request.UpdateUserRequest;
 import com.connectx.dto.response.UserResponse;
 import com.connectx.entity.UserEntity;
+import com.connectx.exception.EmailAlreadyExistsException;
+import com.connectx.exception.UserNotFoundException;
+import com.connectx.exception.UsernameAlreadyExistsException;
 import com.connectx.repository.UserRepository;
 
 import org.springframework.data.domain.Page;
@@ -32,11 +35,15 @@ public class UserService {
     public UserResponse createUser(CreateUserRequest request) {
 
         if (userRepository.existsByEmail(request.email())) {
-            throw new IllegalArgumentException("Email already registered");
+            throw new EmailAlreadyExistsException(
+                    "Email already exists"
+            );
         }
 
         if (userRepository.existsByUsername(request.username())) {
-            throw new IllegalArgumentException("Username already taken");
+            throw new UsernameAlreadyExistsException(
+                    "Username already exists"
+            );
         }
 
         UserEntity user = new UserEntity();
@@ -58,7 +65,7 @@ public class UserService {
 
         UserEntity user = userRepository.findById(id)
                 .orElseThrow(() ->
-                        new IllegalArgumentException("User not found"));
+                        new UserNotFoundException("User not found"));
 
         return toResponse(user);
     }
@@ -75,7 +82,7 @@ public class UserService {
 
         UserEntity user = userRepository.findByEmail(email)
                 .orElseThrow(() ->
-                        new IllegalArgumentException("User not found"));
+                        new UserNotFoundException("User not found"));
 
         return toResponse(user);
     }
@@ -86,7 +93,7 @@ public class UserService {
 
         UserEntity user = userRepository.findById(id)
                 .orElseThrow(() ->
-                        new IllegalArgumentException("User not found"));
+                                new UserNotFoundException("User not found"));
 
         user.setDisplayName(request.displayName());
 
@@ -97,7 +104,9 @@ public class UserService {
 
         UserEntity user = userRepository.findById(id)
                 .orElseThrow(() ->
-                        new IllegalArgumentException("User not found"));
+                        new UserNotFoundException(
+                                "User not found"
+                        ));
 
         userRepository.delete(user);
     }
