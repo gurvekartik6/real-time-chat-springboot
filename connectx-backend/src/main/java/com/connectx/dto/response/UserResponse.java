@@ -1,7 +1,7 @@
 package com.connectx.dto.response;
 
 public record UserResponse(
-        int id,
+        java.util.UUID id,
         String username,
         String email,
         String displayName,
