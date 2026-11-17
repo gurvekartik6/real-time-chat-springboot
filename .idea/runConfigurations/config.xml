@@ -1,0 +1,12 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="config" type="Application" factoryName="Application">
+    <envs>
+      <env name="JWT_SECRET" value="NmMNx8WIZSyCTrkIhoFl+ZtW3BOFM0qTNpTdsdCj0yI=" />
+    </envs>
+    <option name="MAIN_CLASS_NAME" value="com.connectx.ConnectxBackendApplication" />
+    <module name="connectx-backend" />
+    <method v="2">
+      <option name="Make" enabled="true" />
+    </method>
+  </configuration>
+</component>
